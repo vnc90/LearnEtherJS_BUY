@@ -53,7 +53,7 @@ const getPairInfor = async (contractFactory)  => {
             pairAddress : pairUSDT,
             value : valuePairUSDT
         }, {
-            pair : 'BNB',
+            pair : 'BUSD',
             pairAddress : pairBUSD,
             value : valuePairBUSD
         }, {
@@ -62,10 +62,11 @@ const getPairInfor = async (contractFactory)  => {
             value : valuePairUSDC
         }
     ]
-    let max = 0
+    console.log(pair);
+    let max = ethers.BigNumber.from(0)
     let index = 0
     pair.forEach((pair,i)=>{
-        if( max < pair.value) {
+        if( max.lte(pair.value) ) {
             max = pair.value
             index = i
         }
@@ -81,6 +82,7 @@ const main = async () => {
     console.log(`
     Ban dang mua token :${token.symbol}/ ${token.name}
     Liquid Pool : ${pair.pair}
+    Liquid Value :$${ethers.utils.formatEther(pair.value)} ${pair.pair}
     Pair Address : ${pair.pairAddress}
     `);
 
